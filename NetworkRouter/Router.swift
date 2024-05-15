@@ -25,17 +25,20 @@ class Router: NetworkRouter {
     var task: URLSessionDataTaskProtocol?
     let responseQueue: DispatchQueue
     let networkConfigurations: NetworkConfigurations
+    let authManager: SessionManager
     
     // MARK: - Initializers
     
     public init(
         session: URLSessionProtocol,
         responseQueue: DispatchQueue,
-        networkConfigurations: NetworkConfigurations
+        networkConfigurations: NetworkConfigurations,
+        authManager: SessionManager
     ) {
         self.session = session
         self.responseQueue = responseQueue
         self.networkConfigurations = networkConfigurations
+        self.authManager = authManager
     }
     
     // MARK: - Methods
@@ -151,7 +154,7 @@ class Router: NetworkRouter {
     }
     
     private func addAuthorizationHeader(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
-        guard let token = sessionManager.getToken() else {
+        guard let token = authManager.getToken() else {
             return
         }
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
