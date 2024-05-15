@@ -3,23 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CDBC07CF234CCB1B0068A8E9 /* NetworkRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = CDBC07CE234CCB1B0068A8E9 /* NetworkRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CDBC07D4234CCDBE0068A8E9 /* starRounder-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = CDBC07D3234CCDBE0068A8E9 /* starRounder-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CD39473F2BF4E6F700E8B251 /* URLSessionDataTaskProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD39473E2BF4E6F700E8B251 /* URLSessionDataTaskProtocol.swift */; };
+		CD3947422BF4E81E00E8B251 /* URLRequestEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3947412BF4E81E00E8B251 /* URLRequestEncoding.swift */; };
+		CD3947442BF4E84300E8B251 /* EncodingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3947432BF4E84300E8B251 /* EncodingError.swift */; };
+		CD3947472BF4E8CC00E8B251 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3947462BF4E8CC00E8B251 /* NetworkResponse.swift */; };
+		CD3947492BF4E90200E8B251 /* NetworkResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3947482BF4E90200E8B251 /* NetworkResponseHandler.swift */; };
+		CD39474C2BF4E9FF00E8B251 /* Data+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD39474B2BF4E9FF00E8B251 /* Data+Debug.swift */; };
+		CD39474F2BF4EA4200E8B251 /* Encodable+Dict.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD39474E2BF4EA4200E8B251 /* Encodable+Dict.swift */; };
+		CD3947512BF4EA6300E8B251 /* URLRequest+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3947502BF4EA6300E8B251 /* URLRequest+Debug.swift */; };
+		CD3947542BF4EBD500E8B251 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3947532BF4EBD500E8B251 /* ImageService.swift */; };
+		CD3947562BF4EEC300E8B251 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3947552BF4EEC300E8B251 /* SessionManager.swift */; };
 		CDBC07ED234CEFA80068A8E9 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07E3234CEFA70068A8E9 /* HTTPTask.swift */; };
-		CDBC07EE234CEFA80068A8E9 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07E4234CEFA70068A8E9 /* ParameterEncoding.swift */; };
+		CDBC07EE234CEFA80068A8E9 /* JSONBodyEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07E4234CEFA70068A8E9 /* JSONBodyEncoder.swift */; };
 		CDBC07EF234CEFA80068A8E9 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07E5234CEFA80068A8E9 /* Router.swift */; };
-		CDBC07F0234CEFA80068A8E9 /* URLParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07E6234CEFA80068A8E9 /* URLParameterEncoding.swift */; };
-		CDBC07F1234CEFA80068A8E9 /* NetworkMananger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07E7234CEFA80068A8E9 /* NetworkMananger.swift */; };
-		CDBC07F2234CEFA80068A8E9 /* ResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07E8234CEFA80068A8E9 /* ResponseHandler.swift */; };
-		CDBC07F3234CEFA80068A8E9 /* JSONParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07E9234CEFA80068A8E9 /* JSONParameterEncoder.swift */; };
-		CDBC07F4234CEFA80068A8E9 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07EA234CEFA80068A8E9 /* Result.swift */; };
-		CDBC07F5234CEFA80068A8E9 /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07EB234CEFA80068A8E9 /* EndPointType.swift */; };
+		CDBC07F0234CEFA80068A8E9 /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07E6234CEFA80068A8E9 /* URLParameterEncoder.swift */; };
+		CDBC07F1234CEFA80068A8E9 /* NetworkConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07E7234CEFA80068A8E9 /* NetworkConfigurations.swift */; };
+		CDBC07F5234CEFA80068A8E9 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07EB234CEFA80068A8E9 /* Request.swift */; };
 		CDBC07F6234CEFA80068A8E9 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07EC234CEFA80068A8E9 /* HTTPMethod.swift */; };
-		CDBC07FF234CF0870068A8E9 /* NetworkRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC07FE234CF0870068A8E9 /* NetworkRouterTests.swift */; };
 		CDBC0801234CF0870068A8E9 /* NetworkRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7C58F4234CC35C004629DC /* NetworkRouter.framework */; };
 		CDBC0808234CF0F60068A8E9 /* NetworkRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC0807234CF0F60068A8E9 /* NetworkRouterTests.swift */; };
 /* End PBXBuildFile section */
@@ -35,20 +39,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CD39473E2BF4E6F700E8B251 /* URLSessionDataTaskProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionDataTaskProtocol.swift; sourceTree = "<group>"; };
+		CD3947412BF4E81E00E8B251 /* URLRequestEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestEncoding.swift; sourceTree = "<group>"; };
+		CD3947432BF4E84300E8B251 /* EncodingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodingError.swift; sourceTree = "<group>"; };
+		CD3947462BF4E8CC00E8B251 /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
+		CD3947482BF4E90200E8B251 /* NetworkResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseHandler.swift; sourceTree = "<group>"; };
+		CD39474B2BF4E9FF00E8B251 /* Data+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Debug.swift"; sourceTree = "<group>"; };
+		CD39474E2BF4EA4200E8B251 /* Encodable+Dict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Dict.swift"; sourceTree = "<group>"; };
+		CD3947502BF4EA6300E8B251 /* URLRequest+Debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Debug.swift"; sourceTree = "<group>"; };
+		CD3947532BF4EBD500E8B251 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		CD3947552BF4EEC300E8B251 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		CD7C58F4234CC35C004629DC /* NetworkRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD7C58F8234CC35C004629DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD7C5904234CC35C004629DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CDBC07CE234CCB1B0068A8E9 /* NetworkRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkRouter.h; sourceTree = "<group>"; };
-		CDBC07D3234CCDBE0068A8E9 /* starRounder-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "starRounder-Bridging-Header.h"; sourceTree = "<group>"; };
 		CDBC07E3234CEFA70068A8E9 /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
-		CDBC07E4234CEFA70068A8E9 /* ParameterEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
+		CDBC07E4234CEFA70068A8E9 /* JSONBodyEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONBodyEncoder.swift; sourceTree = "<group>"; };
 		CDBC07E5234CEFA80068A8E9 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		CDBC07E6234CEFA80068A8E9 /* URLParameterEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLParameterEncoding.swift; sourceTree = "<group>"; };
-		CDBC07E7234CEFA80068A8E9 /* NetworkMananger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkMananger.swift; sourceTree = "<group>"; };
-		CDBC07E8234CEFA80068A8E9 /* ResponseHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseHandler.swift; sourceTree = "<group>"; };
-		CDBC07E9234CEFA80068A8E9 /* JSONParameterEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParameterEncoder.swift; sourceTree = "<group>"; };
-		CDBC07EA234CEFA80068A8E9 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		CDBC07EB234CEFA80068A8E9 /* EndPointType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
+		CDBC07E6234CEFA80068A8E9 /* URLParameterEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
+		CDBC07E7234CEFA80068A8E9 /* NetworkConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConfigurations.swift; sourceTree = "<group>"; };
+		CDBC07EB234CEFA80068A8E9 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		CDBC07EC234CEFA80068A8E9 /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		CDBC07FC234CF0870068A8E9 /* NetworkRouterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetworkRouterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDBC07FE234CF0870068A8E9 /* NetworkRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouterTests.swift; sourceTree = "<group>"; };
@@ -75,6 +84,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CD3947402BF4E77000E8B251 /* Encoding */ = {
+			isa = PBXGroup;
+			children = (
+				CD3947432BF4E84300E8B251 /* EncodingError.swift */,
+				CDBC07E4234CEFA70068A8E9 /* JSONBodyEncoder.swift */,
+				CDBC07E6234CEFA80068A8E9 /* URLParameterEncoder.swift */,
+				CD3947412BF4E81E00E8B251 /* URLRequestEncoding.swift */,
+			);
+			path = Encoding;
+			sourceTree = "<group>";
+		};
+		CD3947452BF4E8AB00E8B251 /* NetworkResponse */ = {
+			isa = PBXGroup;
+			children = (
+				CD3947462BF4E8CC00E8B251 /* NetworkResponse.swift */,
+				CD3947482BF4E90200E8B251 /* NetworkResponseHandler.swift */,
+			);
+			path = NetworkResponse;
+			sourceTree = "<group>";
+		};
+		CD39474A2BF4E9EA00E8B251 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CD39474B2BF4E9FF00E8B251 /* Data+Debug.swift */,
+				CD39474E2BF4EA4200E8B251 /* Encodable+Dict.swift */,
+				CD3947502BF4EA6300E8B251 /* URLRequest+Debug.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CD3947522BF4EBBD00E8B251 /* ImageService */ = {
+			isa = PBXGroup;
+			children = (
+				CD3947532BF4EBD500E8B251 /* ImageService.swift */,
+			);
+			path = ImageService;
+			sourceTree = "<group>";
+		};
+		CD3947572BF4F9A400E8B251 /* AuthSession */ = {
+			isa = PBXGroup;
+			children = (
+				CD3947552BF4EEC300E8B251 /* SessionManager.swift */,
+			);
+			path = AuthSession;
+			sourceTree = "<group>";
+		};
 		CD7C58EA234CC35C004629DC = {
 			isa = PBXGroup;
 			children = (
@@ -97,19 +152,18 @@
 		CD7C58F6234CC35C004629DC /* NetworkRouter */ = {
 			isa = PBXGroup;
 			children = (
-				CDBC07EB234CEFA80068A8E9 /* EndPointType.swift */,
+				CD7C58F8234CC35C004629DC /* Info.plist */,
 				CDBC07EC234CEFA80068A8E9 /* HTTPMethod.swift */,
 				CDBC07E3234CEFA70068A8E9 /* HTTPTask.swift */,
-				CDBC07E9234CEFA80068A8E9 /* JSONParameterEncoder.swift */,
-				CDBC07E7234CEFA80068A8E9 /* NetworkMananger.swift */,
-				CDBC07E4234CEFA70068A8E9 /* ParameterEncoding.swift */,
-				CDBC07E8234CEFA80068A8E9 /* ResponseHandler.swift */,
-				CDBC07EA234CEFA80068A8E9 /* Result.swift */,
+				CDBC07E7234CEFA80068A8E9 /* NetworkConfigurations.swift */,
+				CDBC07EB234CEFA80068A8E9 /* Request.swift */,
 				CDBC07E5234CEFA80068A8E9 /* Router.swift */,
-				CDBC07E6234CEFA80068A8E9 /* URLParameterEncoding.swift */,
-				CDBC07D3234CCDBE0068A8E9 /* starRounder-Bridging-Header.h */,
-				CDBC07CE234CCB1B0068A8E9 /* NetworkRouter.h */,
-				CD7C58F8234CC35C004629DC /* Info.plist */,
+				CD39473E2BF4E6F700E8B251 /* URLSessionDataTaskProtocol.swift */,
+				CD3947572BF4F9A400E8B251 /* AuthSession */,
+				CD3947402BF4E77000E8B251 /* Encoding */,
+				CD39474A2BF4E9EA00E8B251 /* Extensions */,
+				CD3947522BF4EBBD00E8B251 /* ImageService */,
+				CD3947452BF4E8AB00E8B251 /* NetworkResponse */,
 			);
 			path = NetworkRouter;
 			sourceTree = "<group>";
@@ -139,8 +193,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDBC07CF234CCB1B0068A8E9 /* NetworkRouter.h in Headers */,
-				CDBC07D4234CCDBE0068A8E9 /* starRounder-Bridging-Header.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,8 +241,9 @@
 		CD7C58EB234CC35C004629DC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1030;
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1530;
 				ORGANIZATIONNAME = sayeem;
 				TargetAttributes = {
 					CD7C58F3234CC35C004629DC = {
@@ -208,6 +261,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CD7C58EA234CC35C004629DC;
 			productRefGroup = CD7C58F5234CC35C004629DC /* Products */;
@@ -242,16 +296,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDBC07F0234CEFA80068A8E9 /* URLParameterEncoding.swift in Sources */,
-				CDBC07EE234CEFA80068A8E9 /* ParameterEncoding.swift in Sources */,
-				CDBC07F5234CEFA80068A8E9 /* EndPointType.swift in Sources */,
+				CD3947512BF4EA6300E8B251 /* URLRequest+Debug.swift in Sources */,
+				CD3947542BF4EBD500E8B251 /* ImageService.swift in Sources */,
+				CD3947492BF4E90200E8B251 /* NetworkResponseHandler.swift in Sources */,
+				CDBC07F0234CEFA80068A8E9 /* URLParameterEncoder.swift in Sources */,
+				CDBC07EE234CEFA80068A8E9 /* JSONBodyEncoder.swift in Sources */,
+				CD39474F2BF4EA4200E8B251 /* Encodable+Dict.swift in Sources */,
+				CDBC07F5234CEFA80068A8E9 /* Request.swift in Sources */,
 				CDBC07EF234CEFA80068A8E9 /* Router.swift in Sources */,
+				CD39474C2BF4E9FF00E8B251 /* Data+Debug.swift in Sources */,
 				CDBC07ED234CEFA80068A8E9 /* HTTPTask.swift in Sources */,
-				CDBC07F1234CEFA80068A8E9 /* NetworkMananger.swift in Sources */,
-				CDBC07F3234CEFA80068A8E9 /* JSONParameterEncoder.swift in Sources */,
-				CDBC07F4234CEFA80068A8E9 /* Result.swift in Sources */,
+				CDBC07F1234CEFA80068A8E9 /* NetworkConfigurations.swift in Sources */,
+				CD3947422BF4E81E00E8B251 /* URLRequestEncoding.swift in Sources */,
+				CD3947442BF4E84300E8B251 /* EncodingError.swift in Sources */,
+				CD3947472BF4E8CC00E8B251 /* NetworkResponse.swift in Sources */,
 				CDBC07F6234CEFA80068A8E9 /* HTTPMethod.swift in Sources */,
-				CDBC07F2234CEFA80068A8E9 /* ResponseHandler.swift in Sources */,
+				CD39473F2BF4E6F700E8B251 /* URLSessionDataTaskProtocol.swift in Sources */,
+				CD3947562BF4EEC300E8B251 /* SessionManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,7 +321,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDBC0808234CF0F60068A8E9 /* NetworkRouterTests.swift in Sources */,
-				CDBC07FF234CF0870068A8E9 /* NetworkRouterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +361,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -313,6 +374,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -327,7 +389,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -365,6 +427,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -377,6 +440,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -385,7 +449,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -407,14 +471,16 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = NetworkRouter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = com.awesome.NetworkRouter;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -434,14 +500,16 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = NetworkRouter/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_BUNDLE_IDENTIFIER = com.awesome.NetworkRouter;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -455,7 +523,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = NetworkRouterTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -473,7 +541,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = NetworkRouterTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

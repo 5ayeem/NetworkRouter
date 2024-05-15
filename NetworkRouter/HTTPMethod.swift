@@ -1,5 +1,5 @@
 //
-//  EndPointType.swift
+//  HTTPMethod.swift
 //  NetworkRouter
 //
 //  Created by Sayeem Hussain on 7/21/19.
@@ -9,6 +9,7 @@
 import Foundation
 
 public enum HTTPMethod : String {
+    
     case get     = "GET"
     case post    = "POST"
     case put     = "PUT"

@@ -1,5 +1,5 @@
 //
-//  EndPointType.swift
+//  Router.swift
 //  NetworkRouter
 //
 //  Created by Sayeem Hussain on 7/21/19.
@@ -8,142 +8,152 @@
 
 import Foundation
 
-public typealias NetworkRouterCompletion = (_ data: Data?, _ response: URLResponse?, _ error: Error?) -> Void
+public typealias NetworkCompletion<T> = (Result<T, NetworkResponse>) -> Void
 
-protocol NetworkRouter: class {
-    associatedtype EndPoint: EndPointType
-    associatedtype ParsedType
-    func request(_ route: EndPoint, completion: @escaping (Result<ParsedType>) -> Void)
+public protocol NetworkRouter: AnyObject {
+    
+    @discardableResult
+    func request<T: Decodable>(_ route: Request, completion: @escaping NetworkCompletion<T>) -> URLSessionDataTaskProtocol?
     func cancel()
 }
 
-open class Router<EndPoint: EndPointType>: NetworkRouter {
+class Router: NetworkRouter {
     
-    private var task: URLSessionTask?
-    private let headers = NetworkManager.shared.defaultHeader
+    // MARK: - Properties
     
-    public init() {
-        
+    let session: URLSessionProtocol
+    var task: URLSessionDataTaskProtocol?
+    let responseQueue: DispatchQueue
+    let networkConfigurations: NetworkConfigurations
+    
+    // MARK: - Initializers
+    
+    public init(
+        session: URLSessionProtocol,
+        responseQueue: DispatchQueue,
+        networkConfigurations: NetworkConfigurations
+    ) {
+        self.session = session
+        self.responseQueue = responseQueue
+        self.networkConfigurations = networkConfigurations
     }
     
-    public func request(_ route: EndPoint, completion: @escaping (Result<EndPoint.ParsedType>) -> Void) {
-        let session = URLSession.shared
+    // MARK: - Methods
+    
+    @discardableResult
+    public func request<T: Decodable>(_ route: Request, completion: @escaping NetworkCompletion<T>) -> URLSessionDataTaskProtocol? {
         do {
-            let request = try self.buildRequest(from: route)
-            task = session.dataTask(with: request) { (data, response, error) in
-                self.handle(route, data, response, error, completion: completion)
+            let request = try buildRequest(from: route)
+            task = session.dataTask(with: request) { [weak self] (data, response, error) in
+                guard let self = self else { return }
+                self.handleResponse(for: route, data: data, response: response, error: error, completion: completion)
             }
+            task?.resume()
+            return task
         } catch {
-            self.handle(route, nil, nil, error, completion: completion)
+            completion(.failure(NetworkResponse.unableToConstructRequest))
+            return nil
         }
-        self.task?.resume()
     }
     
-    func cancel() {
+    public func cancel() {
         task?.cancel()
     }
     
-    func handle(_ route: EndPoint,
-                _ data: Data?,
-                _ response: URLResponse?,
-                _ error: Error?,
-                completion: @escaping (Result<ParsedType>) -> Void) {
-        if error != nil {
-            let error = RequestError(message: NetworkResponse.noNetwork.rawValue, errorCode: nil)
-            DispatchQueue.main.async {
-                completion(.failure(error))
+    // MARK: - Helpers
+    
+    func handleResponse<T: Decodable>(
+        for route: Request,
+        data: Data?,
+        response: URLResponse?,
+        error: Error?,
+        completion: @escaping NetworkCompletion<T>
+    ) {
+        // Handle error
+        if let _ = error {
+            responseQueue.async {
+                completion(.failure(NetworkResponse.noNetwork))
             }
+            return
         }
-        if let response = response as? HTTPURLResponse {
-            let result = ResponseHandler.handleNetworkResponse(response)
-            switch result {
-            case .success:
-                guard let responseData = data else {
-                    let error = RequestError(message: NetworkResponse.noData.rawValue, errorCode: nil)
-                    DispatchQueue.main.async {
-                        completion(.failure(error))
-                    }
-                    return
+        
+        // Handle no HTTPURLResponse
+        guard let httpResponse = response as? HTTPURLResponse else {
+            responseQueue.async {
+                completion(.failure(NetworkResponse.failed))
+            }
+            return
+        }
+        
+        // Handle HTTP status codes
+        switch NetworkResponseHandler.handleNetworkResponse(httpResponse) {
+        case .success:
+            guard let responseData = data else {
+                responseQueue.async {
+                    completion(.failure(NetworkResponse.noData))
                 }
-                do {
-                    let apiResponse = try route.parse(data: responseData)
-                    DispatchQueue.main.async {
-                        completion(.success(apiResponse))
-                    }
-                } catch {
-                    let error = RequestError(message: NetworkResponse.unableToDecode.rawValue, errorCode: nil)
-                    DispatchQueue.main.async {
-                        completion(.failure(error))
-                    }
+                return
+            }
+            // Decode response data
+            do {
+                let model = try JSONDecoder().decode(route.resultType, from: responseData)
+                responseQueue.async {
+                    completion(.success(model as! T))
                 }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    completion(.failure(error))
+            } catch {
+                responseQueue.async {
+                    completion(.failure(NetworkResponse.unableToDecode))
                 }
             }
-        } else {
-            let error = RequestError(message: NetworkResponse.failed.rawValue, errorCode: nil)
-            DispatchQueue.main.async {
+        case .failure(let error):
+            responseQueue.async {
                 completion(.failure(error))
             }
         }
     }
     
-    fileprivate func buildRequest(from route: EndPoint) throws -> URLRequest {
-        var request = URLRequest(url: route.baseURL.appendingPathComponent(route.path),
-                                 cachePolicy: .reloadIgnoringLocalAndRemoteCacheData,
-                                 timeoutInterval: 10.0)
-        // Method
+    func buildRequest(from route: Request) throws -> URLRequest {
+        // Create Request
+        var request = URLRequest(
+            url: networkConfigurations.baseURL.appendingPathComponent(route.path),
+            cachePolicy: networkConfigurations.cachePolicy,
+            timeoutInterval: networkConfigurations.timeoutInterval
+        )
+        
+        // Set httpMethod
         request.httpMethod = route.httpMethod.rawValue
-        // Header
-        headers?.forEach { request.allHTTPHeaderFields?[$0.key] = $0.value }
-        // Task
-        do {
-            switch route.task {
-            case .request:
-                break
-            case .requestParameters(let bodyParameters,
-                                    let bodyEncoding,
-                                    let urlParameters):
-                try self.configureParameters(bodyParameters: bodyParameters,
-                                             bodyEncoding: bodyEncoding,
-                                             urlParameters: urlParameters,
-                                             request: &request)
-            case .requestParametersAndHeaders(let bodyParameters,
-                                              let bodyEncoding,
-                                              let urlParameters,
-                                              let additionalHeaders):
-                self.addAdditionalHeaders(additionalHeaders, request: &request)
-                try self.configureParameters(bodyParameters: bodyParameters,
-                                             bodyEncoding: bodyEncoding,
-                                             urlParameters: urlParameters,
-                                             request: &request)
-            }
-            return request
-        } catch {
-            throw error
-        }
-    }
-    
-    fileprivate func configureParameters(bodyParameters: Parameters?,
-                                         bodyEncoding: ParameterEncoding,
-                                         urlParameters: Parameters?,
-                                         request: inout URLRequest) throws {
-        do {
-            try bodyEncoding.encode(urlRequest: &request,
-                                    bodyParameters: bodyParameters,
-                                    urlParameters: urlParameters)
-        } catch {
-            throw error
-        }
-    }
-    
-    fileprivate func addAdditionalHeaders(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
-        guard let headers = additionalHeaders else { return }
-        for (key, value) in headers {
+        
+        // Set default headers
+        networkConfigurations.headers.forEach { key, value in
             request.setValue(value, forHTTPHeaderField: key)
         }
+        
+        // Set auth headers
+        addAuthorizationHeader(networkConfigurations.headers, request: &request)
+        
+        // Add additional headers
+        route.additionalHeaders.forEach { key, value in
+            request.setValue(value, forHTTPHeaderField: key)
+        }
+        
+        // Encode parameters
+        switch route.task {
+        case .request:
+            break
+        case .requestWith(let urlParameters, let bodyParameters, let encoder):
+            try encoder.encode(
+                urlRequest: &request,
+                urlParameters: urlParameters,
+                bodyParameters: bodyParameters
+            )
+        }
+        return request
     }
     
+    private func addAuthorizationHeader(_ additionalHeaders: HTTPHeaders?, request: inout URLRequest) {
+        guard let token = sessionManager.getToken() else {
+            return
+        }
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    }
 }
-
