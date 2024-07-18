@@ -14,7 +14,7 @@ public protocol NetworkRouter: AnyObject {
     
     @discardableResult
     func request<T: Decodable>(_ route: Request, completion: @escaping NetworkCompletion<T>) -> URLSessionDataTaskProtocol?
-    func cancel()
+    func cancel(route: Request)
 }
 
 class Router: NetworkRouter {
@@ -22,8 +22,9 @@ class Router: NetworkRouter {
     // MARK: - Properties
     
     let session: URLSessionProtocol
-    var task: URLSessionDataTaskProtocol?
+    var tasks: [URL: URLSessionDataTaskProtocol] = [:]
     let responseQueue: DispatchQueue
+    private let dataTaskSerialQueue = DispatchQueue(label: "com.NetworkRouter.serialqueue")
     let networkConfigurations: NetworkConfigurations
     let authManager: SessionManager
     
@@ -47,11 +48,12 @@ class Router: NetworkRouter {
     public func request<T: Decodable>(_ route: Request, completion: @escaping NetworkCompletion<T>) -> URLSessionDataTaskProtocol? {
         do {
             let request = try buildRequest(from: route)
-            task = session.dataTask(with: request) { [weak self] (data, response, error) in
+            let task = session.dataTask(with: request) { [weak self] (data, response, error) in
                 guard let self = self else { return }
                 self.handleResponse(for: route, data: data, response: response, error: error, completion: completion)
             }
-            task?.resume()
+            task.resume()
+            set(dataTask: task, for: route)
             return task
         } catch {
             completion(.failure(NetworkResponse.unableToConstructRequest))
@@ -59,8 +61,9 @@ class Router: NetworkRouter {
         }
     }
     
-    public func cancel() {
-        task?.cancel()
+    public func cancel(route: Request) {
+        cancelDataTask(for: route)
+        set(dataTask: nil, for: route)
     }
     
     // MARK: - Helpers
@@ -72,19 +75,26 @@ class Router: NetworkRouter {
         error: Error?,
         completion: @escaping NetworkCompletion<T>
     ) {
-        // Handle error
-        if let _ = error {
+        
+        func completionOnResponseQueue(with result: Result<T, NetworkResponse>) {
             responseQueue.async {
-                completion(.failure(NetworkResponse.noNetwork))
+                completion(result)
             }
+        }
+        
+        defer {
+            set(dataTask: nil, for: route)
+        }
+        
+        // Handle error
+        guard error == nil else {
+            completionOnResponseQueue(with: .failure(NetworkResponse.noNetwork))
             return
         }
         
         // Handle no HTTPURLResponse
         guard let httpResponse = response as? HTTPURLResponse else {
-            responseQueue.async {
-                completion(.failure(NetworkResponse.failed))
-            }
+            completionOnResponseQueue(with: .failure(NetworkResponse.failed))
             return
         }
         
@@ -92,26 +102,18 @@ class Router: NetworkRouter {
         switch NetworkResponseHandler.handleNetworkResponse(httpResponse) {
         case .success:
             guard let responseData = data else {
-                responseQueue.async {
-                    completion(.failure(NetworkResponse.noData))
-                }
+                completionOnResponseQueue(with: .failure(NetworkResponse.noData))
                 return
             }
             // Decode response data
             do {
                 let model = try JSONDecoder().decode(route.resultType, from: responseData)
-                responseQueue.async {
-                    completion(.success(model as! T))
-                }
+                completionOnResponseQueue(with: .success(model as! T))
             } catch {
-                responseQueue.async {
-                    completion(.failure(NetworkResponse.unableToDecode))
-                }
+                completionOnResponseQueue(with: .failure(NetworkResponse.unableToDecode))
             }
         case .failure(let error):
-            responseQueue.async {
-                completion(.failure(error))
-            }
+            completionOnResponseQueue(with: .failure(error))
         }
     }
     
@@ -158,5 +160,21 @@ class Router: NetworkRouter {
             return
         }
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    }
+    
+    private func set(dataTask: URLSessionDataTaskProtocol?, for route: Request) {
+        let url = networkConfigurations.baseURL.appendingPathComponent(route.path)
+        dataTaskSerialQueue.async { [weak self] in
+            guard let self = self else { return }
+            tasks[url] = dataTask
+        }
+    }
+    
+    private func cancelDataTask(for route: Request) {
+        let url = networkConfigurations.baseURL.appendingPathComponent(route.path)
+        dataTaskSerialQueue.async { [weak self] in
+            guard let self = self else { return }
+            tasks[url]?.cancel()
+        }
     }
 }
